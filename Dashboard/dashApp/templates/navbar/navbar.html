@@ -1,7 +1,8 @@
 <!-- HTML -->
+{% load static %}
 <script src="https://cdn.tailwindcss.com"></script>
-<script src="script.js"></script>
-<link rel="stylesheet" href="style.css">
+<script src='{% static "navbar/script.js" %}'></script>
+<link rel="stylesheet" href='{% static "navbar/style.css" %}'>
 <nav class="flex items-center justify-between p-4 h-12 bg-white dark:bg-gray-800 transition">
     <div class="flex items-center">
       <a href="#" class="text-xl font-bold text-black dark:text-white transition">Logo</a>
@@ -18,4 +19,5 @@
       </button>
     </div>
   </nav>
+  
   

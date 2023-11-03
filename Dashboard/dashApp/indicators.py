@@ -307,7 +307,7 @@ def calculer_duree_moyenne_recrutement(debut_periode, fin_periode,departement=0)
     except Exception as e:
         print(f"Erreur lors du calcul de la durée moyenne de recrutement : {str(e)}")
         return 0
-
+"""
 debut_periode = date(2022, 1, 1)
 fin_periode = date(2022, 12, 31)
 duree_moyenne_recrutement = calculer_duree_moyenne_recrutement(debut_periode, fin_periode, departement=2)
@@ -316,6 +316,52 @@ if duree_moyenne_recrutement is not 0:
     print(f"Durée moyenne de recrutement pour la période spécifiée : {duree_moyenne_recrutement} jours")
 else:
     print("Impossible de calculer la durée moyenne de recrutement.")
+"""
+
+import json
+import pymysql
+
+def distribution_par_genre_par_departement():
+    try:
+        db = pymysql.connect(
+            host='localhost',
+            user='root',
+            password='',
+            db='entreprise'
+        )
+        cursor = db.cursor()
+
+        sql = '''
+            SELECT
+                d.NomDepartement AS Departement,
+                CAST(SUM(CASE WHEN e.Genre = 'Male' THEN 1 ELSE 0 END) AS UNSIGNED) AS Male,
+                CAST(SUM(CASE WHEN e.Genre = 'Female' THEN 1 ELSE 0 END) AS UNSIGNED) AS Female
+            FROM
+                Employe e
+            JOIN
+                departement d ON e.Departement = d.ID_Departement
+            GROUP BY
+                d.NomDepartement;
+        '''
+
+        cursor.execute(sql)
+        resultats = cursor.fetchall()
+        db.close()
+
+        resultats_groupe = {}
+        for departement, male, female in resultats:
+            resultats_groupe[departement] = {'Male': male, 'Female': female}
+
+        return resultats_groupe
+
+    except Exception as e:
+        print(f"Erreur lors du calcul de la répartition par genre dans chaque département : {str(e)}")
+        return {}
+
+
+# Exemple d'utilisation :
+resultats = distribution_par_genre_par_departement()
+print(resultats)
 
 
 

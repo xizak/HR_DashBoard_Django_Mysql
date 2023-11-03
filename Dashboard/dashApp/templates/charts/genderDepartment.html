@@ -1,0 +1,41 @@
+{% load i18n %}
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+
+<script>
+
+    var radarData = {
+        'Finance': { 'Male': 3, 'Female': 5 },
+        'Informatique': { 'Male': 5, 'Female': 5 },
+        'Marketing': { 'Male': 4, 'Female': 8 },
+        'Production': { 'Male': 3, 'Female': 4 },
+        'Recherche et développement': { 'Male': 4, 'Female': 3 },
+        'Ressources Humaines': { 'Male': 9, 'Female': 3 },
+        'Service client': { 'Male': 6, 'Female': 1 },
+        'Ventes': { 'Male': 6, 'Female': 2 }
+    };
+
+    var data = Object.keys(radarData).map(function (category) {
+        return [
+            { axis: "Male", value: radarData[category]['Male'] / 10 },
+            { axis: "Female", value: radarData[category]['Female'] / 10 }
+        ];
+    });
+
+    var color = d3.scale.ordinal()
+        .range(["#EDC951", "#CC333F", "#00A0B0"]);
+
+    var radarChartOptions = {
+        w: width,
+        h: height,
+        margin: margin,
+        maxValue: 1.0,
+        levels: 5,
+        roundStrokes: true,
+        color: color
+    };
+
+    RadarChart(".radarChart", data, radarChartOptions);
+
+</script>
