@@ -1,0 +1,20 @@
+/* CSS */
+:root {
+  --transition: 0.3s ease-in-out;
+}
+
+.dark {
+  --bg-color: #121212;
+  --text-color: #f0f0f0;
+}
+
+[data-theme="dark"] {
+  --bg-color: #f0f0f0;
+  --text-color: #121212;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: var(--transition);
+}
