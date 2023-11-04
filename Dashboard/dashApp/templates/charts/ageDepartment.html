@@ -1,18 +1,11 @@
-<meta charset="utf-8">
-
-<!-- Load d3.js -->
-<script src="https://d3js.org/d3.v4.js"></script>
-
-<!-- Create a div where the graph will take place -->
 <div id="heatmap"></div>
 
-<!-- Load color palettes -->
 <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
 <script>
-    // Your data
-    var data = { 'Marketing': { '20-29 ans': 1, '30-39 ans': 2, '40-49 ans': 4, '50-59 ans': 2, '60-69 ans': 3 }, 'Ressources Humaines': { '20-29 ans': 1, '30-39 ans': 3, '40-49 ans': 3, '50-59 ans': 3, '60-69 ans': 2 }, 'Finance': { '20-29 ans': 0, '30-39 ans': 1, '40-49 ans': 4, '50-59 ans': 1, '60-69 ans': 2 }, 'Informatique': { '20-29 ans': 1, '30-39 ans': 3, '40-49 ans': 2, '50-59 ans': 2, '60-69 ans': 2 }, 'Ventes': { '20-29 ans': 1, '30-39 ans': 3, '40-49 ans': 1, '50-59 ans': 1, '60-69 ans': 2 }, 'Service client': { '20-29 ans': 2, '30-39 ans': 1, '40-49 ans': 1, '50-59 ans': 2, '60-69 ans': 1 }, 'Production': { '20-29 ans': 1, '30-39 ans': 3, '40-49 ans': 0, '50-59 ans': 1, '60-69 ans': 2 }, 'Recherche et développement': { '20-29 ans': 2, '30-39 ans': 2, '40-49 ans': 1, '50-59 ans': 1, '60-69 ans': 1 } };
 
-    // Transform the data into the format required by the heatmap
+    var data = {{genreHeatMap}}
+
+   
     var heatmapData = [];
     Object.keys(data).forEach(function (department) {
         Object.keys(data[department]).forEach(function (ageGroup) {
@@ -25,8 +18,8 @@
     });
 
     // Create the heatmap
-    var margin = { top: 30, right: 30, bottom: 70, left: 60 },
-        width = 460 - margin.left - margin.right,
+    var margin = { top: 30, right: 30, bottom: 70, left: 200 },
+        width = 660 - margin.left - margin.right,
         height = 400 - margin.top - margin.bottom;
 
     // Append the svg object to the body of the page
@@ -66,7 +59,7 @@
         .select(".domain").remove()
 
     // Create the tooltip
-    var tooltip = d3.select("#my_dataviz")
+    var tooltip = d3.select("#heatmap")
         .append("div")
         .style("opacity", 0)
         .attr("class", "tooltip")
@@ -83,8 +76,8 @@
     };
     var mousemove = function (d) {
         tooltip
-            .html("The " + d.value)
-            .style("left", (d3.mouse(this)[0] + 50) + "px")
+            .html(d.value + " Employés")
+            .style("left", (d3.mouse(this)[0] + 70) + "px")
             .style("top", (d3.mouse(this)[1]) + "px");
     };
     var mouseleave = function (d) {
@@ -94,7 +87,7 @@
 
     // Build color scale
     var colorScale = d3.scaleLinear()
-        .range(["#ffffd9", "#41b6c4", "#081d58"])
+        .range(["#3399CC", "blue", "purple"])
         .domain([1, 5, 10]);
 
     // Add the squares
@@ -116,5 +109,21 @@
         .on("mousemove", mousemove)
         .on("mouseleave", mouseleave);
 
+    svg.append("text")
+        .attr("x", 0)
+        .attr("y", -50)
+        .attr("text-anchor", "left")
+        .style("font-size", "22px")
+        .text("A d3.js heatmap");
+
+    // Add subtitle to graph
+    svg.append("text")
+        .attr("x", 0)
+        .attr("y", -20)
+        .attr("text-anchor", "left")
+        .style("font-size", "14px")
+        .style("fill", "grey")
+        .style("max-width", 400)
+        .text("distribution des employés des departement par age");
 
 </script>

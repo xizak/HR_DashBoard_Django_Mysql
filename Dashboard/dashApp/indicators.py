@@ -390,5 +390,4 @@ def repartition_par_age_departement():
         print(f"Erreur lors de la récupération de la répartition par âge : {str(e)}")
         return 0
 
-print(repartition_par_age_departement())
 

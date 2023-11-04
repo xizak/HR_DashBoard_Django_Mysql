@@ -16,6 +16,8 @@ def landing_view(request):
         "departement": mark_safe(json.dumps(dict(repartition_par_departement()))),
         "age": mark_safe(json.dumps(dict(repartition_par_age()))),
         "genreRadar": mark_safe(json.dumps(distribution_par_genre_par_departement())),
+        "genreHeatMap": mark_safe(json.dumps(repartition_par_age_departement())),
+
 
     }
     return render(request, "dashApp/landing.html", context=context)

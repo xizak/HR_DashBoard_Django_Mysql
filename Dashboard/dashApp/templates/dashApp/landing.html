@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://d3js.org/d3.v4.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.15/dist/tailwind.min.css" rel="stylesheet">
     <style>
         /* Custom styles for the dashboard */
@@ -12,6 +13,8 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             padding: .7rem;
         }
+
+
     </style>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -19,7 +22,11 @@
 
 <body class="bg-gray-100">
     {% include "navbar/navbar.html" %}
+    {% include "charts/genderDepartment.html" %}
     {% include "charts/ageDepartment.html" %}
+    {% include "charts/age.html" %}
+
+
     </div>
 </body>
 
